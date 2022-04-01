@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "example": "npx nightwatch node_modules/nightwatch/examples/tests/ecosia.js --env chrome"
+    "testJoinClass": "npx nightwatch tests/joinInClass.js --env chrome",
+    "testInClass": "npx nightwatch tests/clickNextToTheEndInClass.js --env chrome",
+    "testHomeWork": "npx nightwatch tests/clickNextToTheEndHomeWork.js --env chrome"
   },
   "dependencies": {
     "jsonwebtoken": "^8.5.1",
