@@ -2,7 +2,9 @@
   "scripts": {
     "testJoinClass": "npx nightwatch tests/joinInClass.js --env chrome",
     "testInClass": "npx nightwatch tests/clickNextToTheEndInClass.js --env chrome",
-    "testHomeWork": "npx nightwatch tests/clickNextToTheEndHomeWork.js --env chrome"
+    "testHomeWork": "npx nightwatch tests/clickNextToTheEndHomeWork.js --env chrome",
+    "testObserve": "npx nightwatch tests/clickAllLessonsInObserve.js --config teacher.nightwatch.conf.js --env chrome",
+    "testPresent": "npx nightwatch tests/clickAllLessonsInPresent.js --config teacher.nightwatch.conf.js --env chrome"
   },
   "dependencies": {
     "jsonwebtoken": "^8.5.1",
