@@ -8,14 +8,6 @@ Install dependencies:
 
 ## Running
 
-Start test Join Class:
+Start test inHouse Live Class:
 
-- `npm run joinClass`
-
-Start test In-class:
-
-- `npm run testInClass`
-
-Start test Home Work:
-
-- `npm run testHomeWork`
+- `npm run testInHouseStay30MinutesInLive`
