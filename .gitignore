@@ -37,3 +37,4 @@ TEST*.xml
 Thumbs.db
 
 tests_output/
+screens/

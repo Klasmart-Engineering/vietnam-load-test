@@ -1,10 +1,12 @@
 {
   "scripts": {
     "testJoinClass": "npx nightwatch tests/joinInClass.js --env chrome",
-    "testInClass": "npx nightwatch tests/clickNextToTheEndInClass.js --env chrome",
+    "testInClass": "npx nightwatch tests/clickNextToTheEndInClass.js --config teacher.nightwatch.conf.js --env chrome",
     "testHomeWork": "npx nightwatch tests/clickNextToTheEndHomeWork.js --env chrome",
     "testObserve": "npx nightwatch tests/clickAllLessonsInObserve.js --config teacher.nightwatch.conf.js --env chrome",
-    "testPresent": "npx nightwatch tests/clickAllLessonsInPresent.js --config teacher.nightwatch.conf.js --env chrome"
+    "testPresent": "npx nightwatch tests/clickAllLessonsInPresent.js --config teacher.nightwatch.conf.js --env chrome",
+    "testAllInLive": "npx nightwatch tests/loadero/loadtest.kidsloop.vn/clickAllButtonsInLive.js --config teacher.nightwatch.conf.js --env chrome",
+    "testInHouseStay30MinutesInLive": "bash scripts/inHouse/testStay30MinutesInLive.sh"
   },
   "dependencies": {
     "jsonwebtoken": "^8.5.1",

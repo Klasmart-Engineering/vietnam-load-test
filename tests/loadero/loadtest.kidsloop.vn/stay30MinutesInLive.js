@@ -1,51 +1,45 @@
 var jwt = require('jsonwebtoken');
 
 module.exports = {
-  'Click next to the end in Home Work': (client) => {
+  'Stay 30 minutes in Live': (client) => {
     // ----------------------------
     // Test configuration settings.
     // ----------------------------
-    const DOMAIN = 'beta.kidsloop.vn';
+    const DOMAIN = 'loadtest.kidsloop.vn';
     const SECRET = `iXtZx1D5AqEB0B9pfn+hRQ==`;
-    const ORG_ID = '051f6f59-ddf7-4d4a-9b88-d536235bae43';
-    const USER_ID = 'baf70ce4-3ab0-4167-8877-c978f822ca90';
+    const ORG_ID = '94c33343-0736-4100-9c61-704f098b2453';
+    const USER_ID = 'b2f7136b-7eaa-440a-8942-b18218ab4239';
     const ROOM_ID = `${client.globals.group.id}_${client.globals.run.id}`;
-    const CLASS_TYPE = 'study'; //live, class, study, home
+    const CLASS_TYPE = 'live'; //live, class, study
     const MATERIALS = [
       {
-        id: '60adca33b3eb96673eaf0eed',
-        name: 'PDF',
-        url: 'assets/60adc9e7b3eb96673eaf0eea.pdf',
-        __typename: 'Iframe',
-      },
-      //   {
-      //     id: '60adc9beb3eb96673eaf0ec2',
-      //     name: 'Video',
-      //     url: 'https://cdn-live.beta.kidsloop.vn/assets/60adc97db3eb96673eaf0ebf.mp4',
-      //     __typename: 'Video',
-      //   },
-      {
-        id: '60adc964b3eb96673eaf0ea3',
-        name: 'Image',
-        url: 'https://cdn-live.beta.kidsloop.vn/assets/60adc95eb3eb96673eaf0ea0.JPG',
+        id: '6258f2ffd1ecfd49d143a316',
+        name: 'Non H5P-Image - Welcome',
+        url: 'https://live.loadtest.kidsloop.vn/assets/6258f2dbb53568f5dd2f4812.png',
         __typename: 'Image',
       },
       {
-        id: '60adc93fb3eb96673eaf0e7d',
-        name: 'Quiz1',
-        url: '/h5p/play/60adc939eaceec00120c3fcf',
+        id: '6258f56a53d32ac59ec45993',
+        name: 'Find the words -number',
+        url: '/h5p/play/6258f49f2ad8bc8d4768478a',
         __typename: 'Iframe',
       },
       {
-        id: '60adc913b3eb96673eaf0e5a',
-        name: 'Drag and Drop',
-        url: '/h5p/play/60adc90feaceec00120c3fce',
+        id: '6257a21dfd8b189cf168cf63',
+        name: 'PDF file',
+        url: 'assets/6257a21954a34625f4c063a0.pdf',
         __typename: 'Iframe',
       },
       {
-        id: '60adc750b3eb96673eaf0e06',
-        name: 'Image Pairing',
-        url: '/h5p/play/60adc746eaceec00120c3fc5',
+        id: '6258f5c3b53568f5dd2f4964',
+        name: 'Course Presentation - dragdrop',
+        url: '/h5p/play/6258f0892ad8bc8d47684788',
+        __typename: 'Iframe',
+      },
+      {
+        id: '6258f3a9b53568f5dd2f486d',
+        name: 'PDF file',
+        url: 'assets/6258f3a61c4f2c1a0591cf1d.pdf',
         __typename: 'Iframe',
       },
     ];
@@ -73,8 +67,10 @@ module.exports = {
         joinRoom: '.MuiTypography-root.MuiTypography-body1',
       },
       buttons: {
+        back: 'div.MuiGrid-root.MuiGrid-container.MuiGrid-wrap-xs-nowrap > div:nth-child(1) > div',
         next: 'div:nth-child(3) > div',
-        leave: 'div:nth-child(2) > div > div:nth-child(2) > button',
+        confirm: 'div:nth-child(1) > div > div > button',
+        leave: 'div > div > div > button',
         microphone: '#toolbar-item-microphone',
         camera: '#toolbar-item-camera',
         canvas:
@@ -85,6 +81,7 @@ module.exports = {
         present: '[title="Present"]',
         observe: '[title="Observe"]',
         endCall: '#toolbar-item-call',
+        confirmEndClass: 'button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary',
         pen: '#body > div:nth-child(2) > div > div > div:nth-child(1) > div',
         chat: 'div:nth-child(4) > div > button',
         chatInput: 'div:nth-child(3) > form',
@@ -135,7 +132,7 @@ module.exports = {
     const generateAccessToken = () => {
       const payload = {
         id: USER_ID,
-        email: 'qa+stress_t1@calmid.com',
+        email: 'qavn1+teacher1@calmid.com',
         exp: 1945208998,
         iss: 'calmid-debug',
       };
@@ -218,14 +215,12 @@ module.exports = {
     // Loop of actions for participants
     const actionFlow = () => {
       // TODO: Implement test case here
-      const { buttons } = selectors;
-      for (let i = 0; i < MATERIALS.length; i++) {
-        client.pause(10 * second);
-        waitAndClick(buttons.next);
-      }
-      client.pause(20 * second);
-      waitAndClick(buttons.leave);
-      client.pause(10 * second);
+      const {buttons} = selectors;
+      
+      client.pause(30 * minute);
+      client.takeScreenshot(`finish.png`);
+      waitAndClick(buttons.endCall);
+      waitAndClick(buttons.confirmEndClass);
     };
 
     // Account credentials setup.
