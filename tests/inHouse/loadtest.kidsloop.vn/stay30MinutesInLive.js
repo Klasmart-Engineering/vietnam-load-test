@@ -76,6 +76,9 @@ module.exports = {
         goLive: '.MuiFab-label',
         joinRoom: '.MuiTypography-root.MuiTypography-body1',
       },
+      livePage: {
+        container: '#main-content',
+      },
       buttons: {
         back: 'div.MuiGrid-root.MuiGrid-container.MuiGrid-wrap-xs-nowrap > div:nth-child(1) > div',
         next: 'div:nth-child(3) > div',
@@ -86,7 +89,6 @@ module.exports = {
         canvas:
           'div:nth-child(2) > div > div:nth-child(1) > div:nth-child(2) > div > button',
         text: '#body > div:nth-child(2) > div > div > div:nth-child(2) > div',
-        container: '#main-content',
         viewModes: 'div:nth-child(3) > div:nth-child(3) > div',
         present: '[title="Present"]',
         observe: '[title="Observe"]',
@@ -200,7 +202,7 @@ module.exports = {
 
     // Joining class function
     const joinClass = () => {
-      const { joiningClass, homePage } = selectors;
+      const { joiningClass, livePage } = selectors;
 
       console.log('Room ID: ', ROOM_ID);
       console.log('Participant ID: ', PARTICIPANT_ID);
@@ -220,7 +222,7 @@ module.exports = {
         .resizeWindow(1920, 1080);
 
       waitAndClick(joiningClass.joinRoom);
-      client.waitForElementVisible(homePage.container);
+      client.waitForElementVisible(livePage.container);
       client.takeScreenshot(`joinRoom.png`);
     };
 
