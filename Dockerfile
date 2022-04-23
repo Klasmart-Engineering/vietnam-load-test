@@ -14,4 +14,4 @@ WORKDIR /tmp/
 RUN npm i
 ENV DISPLAY ":99.0"
 RUN rm -rf /var/lib/apt/lists/* && rm -f /tmp/google-chrome-stable_current_amd64.deb
-ENTRYPOINT [ "/usr/bin/bash"]
+ENTRYPOINT [ "./nightwatch-start.sh"]
