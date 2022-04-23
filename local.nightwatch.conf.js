@@ -121,12 +121,8 @@ module.exports = {
             '--use-fake-ui-for-media-stream',
             '--use-fake-device-for-media-stream',
             '--use-file-for-fake-video-capture=configs/white-noise-video.mjpeg',
-            '--use-file-for-fake-audio-capture=configs/white-noise-audio.wav',
-            '--no-sandbox',
-            '--headless',
-            '--disable-gpu', 
-            '--disable-software-rasterizer', 
-            '--disable-dev-shm-usage'
+            '--use-file-for-fake-audio-capture=configs/white-noise-audio.wav'
+            //'--no-sandbox',
             //'--ignore-certificate-errors',
             //'--allow-insecure-localhost',
             //'--headless'
@@ -135,7 +131,6 @@ module.exports = {
       },
 
       webdriver: {
-        port: 9515,
         start_process: true,
         server_path: '',
         cli_args: [
