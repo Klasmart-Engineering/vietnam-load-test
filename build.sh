@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t nightwatch .
+docker build -t loadtesting-load-generation-system .
