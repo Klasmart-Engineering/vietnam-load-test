@@ -1,2 +1,4 @@
 #!bin/bash
-npx nightwatch tests/inHouse/loadtest.kidsloop.vn/stay30MinutesInLive.js --room_id abc --group_name ${GROUPNAME} --participant_id ${HOSTNAME} --env chrome --parallel
+set -e
+npx nightwatch tests/inHouse/loadtest.kidsloop.vn/stay30MinutesInLive.js --room_id ${ROOMID} --group_name ${GROUPNAME} --participant_id ${PARTICIPANTID} --env chrome --parallel
+exit 0
