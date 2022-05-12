@@ -140,6 +140,23 @@ module.exports = {
       );
     };
 
+    const padTo2Digits = (num) => {
+      return num.toString().padStart(2, '0');
+    }
+
+    const formatDate = (date) => {
+      return (
+        [
+          date.getFullYear(),
+          padTo2Digits(date.getMonth() + 1),
+          padTo2Digits(date.getDate()),
+          padTo2Digits(date.getHours()),
+          padTo2Digits(date.getMinutes()),
+          padTo2Digits(date.getSeconds()),
+        ].join('-') 
+      );
+    }
+
     // Token generation functions
     const generateAccessToken = () => {
       const payload = {
@@ -222,8 +239,6 @@ module.exports = {
         .resizeWindow(1920, 1080);
 
       waitAndClick(joiningClass.joinRoom);
-      client.waitForElementVisible(livePage.container);
-      client.takeScreenshot(`joinRoom.png`);
     };
 
     // Loop of actions for participants
@@ -231,8 +246,10 @@ module.exports = {
       // TODO: Implement test case here
       const {buttons} = selectors;
       
+      client.pause(15*second);
+      client.takeScreenshot(`${PARTICIPANT_ID}-joinRoomAfter15s-${formatDate(new Date())}.png`);
       client.pause(30 * minute);
-      client.takeScreenshot(`finish.png`);
+      client.takeScreenshot(`${PARTICIPANT_ID}-finish-${formatDate(new Date())}.png`);
       waitAndClick(buttons.endCall);
       waitAndClick(buttons.confirmEndClass);
     };
