@@ -1,12 +1,9 @@
 #!/bin/bash
+set -aeuo pipefail
 
-set -e 
-
-VERSION=$(cat ../VERSION)
 GROUPNAME=$1
 ROOMID=$2
 PARTICIPANTID=$3
-K8S_NAMESPACE=$4
 
 cat <<EOF | kubectl apply -f -
 apiVersion: batch/v1

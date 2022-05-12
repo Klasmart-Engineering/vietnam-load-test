@@ -1,5 +1,11 @@
 #!/bin/bash
+set -aeuo pipefail
 
-set -e
+# create the dotenv file if it doesn't exist
+if [ ! -f .env ]; then
+  cp .env.example .env
+fi
 
-kubectl delete job -n klvn-beta $(kubectl get jobs -n klvn-beta | grep nightwatch-job | awk '{print $1}')
+source .env
+
+kubectl delete job -n ${K8S_NAMESPACE} $(kubectl get jobs -n ${K8S_NAMESPACE} | grep nightwatch-job | awk '{print $1}')
