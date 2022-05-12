@@ -250,8 +250,6 @@ module.exports = {
       client.takeScreenshot(`${PARTICIPANT_ID}-joinRoomAfter5m-${formatDate(new Date())}.png`);
       client.pause(30 * minute);
       client.takeScreenshot(`${PARTICIPANT_ID}-finish-${formatDate(new Date())}.png`);
-      waitAndClick(buttons.endCall);
-      waitAndClick(buttons.confirmEndClass);
     };
 
     // Account credentials setup.
