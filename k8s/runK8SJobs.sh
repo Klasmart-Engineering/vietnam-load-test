@@ -1,8 +1,12 @@
 #!/bin/bash
+set -aeuo pipefail
 
-K8S_NAMESPACE=klvn-beta
-CONCURRENT_CLASSES=1
-STUDENTS=3
+# create the dotenv file if it doesn't exist
+if [ ! -f .env ]; then
+  cp .env.example .env
+fi
+
+source .env
 
 for class in $(seq 1 $CONCURRENT_CLASSES);
 do	
