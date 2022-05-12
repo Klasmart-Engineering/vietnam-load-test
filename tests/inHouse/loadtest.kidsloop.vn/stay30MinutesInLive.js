@@ -246,8 +246,8 @@ module.exports = {
       // TODO: Implement test case here
       const {buttons} = selectors;
       
-      client.pause(15*second);
-      client.takeScreenshot(`${PARTICIPANT_ID}-joinRoomAfter15s-${formatDate(new Date())}.png`);
+      client.pause(5*minute);
+      client.takeScreenshot(`${PARTICIPANT_ID}-joinRoomAfter5m-${formatDate(new Date())}.png`);
       client.pause(30 * minute);
       client.takeScreenshot(`${PARTICIPANT_ID}-finish-${formatDate(new Date())}.png`);
       waitAndClick(buttons.endCall);
