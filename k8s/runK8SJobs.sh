@@ -2,7 +2,7 @@
 
 K8S_NAMESPACE=klvn-beta
 CONCURRENT_CLASSES=1
-STUDENTS=1
+STUDENTS=3
 
 for class in $(seq 1 $CONCURRENT_CLASSES);
 do	
