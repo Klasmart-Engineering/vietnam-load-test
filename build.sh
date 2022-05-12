@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t loadtesting-load-generation-system .
+docker build -q -t loadtesting-load-generation-system .
