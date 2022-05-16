@@ -1,17 +1,43 @@
 FROM ubuntu:20.04
 
-## Installing environment level dependencies
-RUN apt update
-RUN DEBIAN_FRONTEND=noninteractive apt install npm -y
-RUN apt install curl vim wget libappindicator1 fonts-liberation -y
-## Install Chrome
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -P /tmp
-RUN apt install /tmp/google-chrome-stable_current_amd64.deb -y
+MAINTAINER hai.nguyen@kidsloop.live
 
-RUN apt-get -y install xorg xvfb gtk2-engines-pixbuf dbus-x11 xfonts-base xfonts-100dpi xfonts-75dpi xfonts-cyrillic xfonts-scalable imagemagick x11-apps
-COPY . /tmp/
-WORKDIR /tmp/
+ARG DEBIAN_FRONTEND="noninteractive"
+ARG DEBCONF_NOWARNINGS="yes"
+ARG DEBCONF_TERSE="yes"
+ARG APT="apt-get -qq -y"
+ARG LANG="C.UTF-8"
+
+## Configure APT
+RUN set -x \
+&& echo "debconf debconf/frontend select ${DEBIAN_FRONTEND}" | debconf-set-selections \
+&& echo 'APT::Install-Recommends "false";' | tee /etc/apt/apt.conf.d/99install-recommends \
+&& echo 'APT::Get::Assume-Yes "true";' | tee /etc/apt/apt.conf.d/99assume-yes \
+&& sed -Ei 's|^(DPkg::Pre-Install-Pkgs .*)|#\1|g' /etc/apt/apt.conf.d/70debconf \
+&& debconf-show debconf
+
+## Install Packages
+RUN set -x \
+&& mv /etc/apt/apt.conf.d/70debconf . \
+&& ${APT} update \
+&& ${APT} install apt-utils >/dev/null \
+&& mv 70debconf /etc/apt/apt.conf.d \
+&& ${APT} upgrade >/dev/null \
+&& ${APT} install npm curl vim wget libappindicator1 fonts-liberation
+
+## Install Chrome
+RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -P /tmp
+RUN ${APT} install /tmp/google-chrome-stable_current_amd64.deb
+RUN ${APT} install xorg xvfb gtk2-engines-pixbuf dbus-x11 xfonts-base xfonts-100dpi xfonts-75dpi xfonts-cyrillic xfonts-scalable imagemagick x11-apps
+
+## Prepare NightWatchJS
+RUN mkdir -p /mnt/nightwatchjs/
+COPY . /mnt/nightwatchjs/
+WORKDIR /mnt/nightwatchjs/
 RUN npm i
 ENV DISPLAY ":99.0"
-RUN rm -rf /var/lib/apt/lists/* && rm -f /tmp/google-chrome-stable_current_amd64.deb
+
+## Clean up
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 ENTRYPOINT [ "./nightwatch-start.sh"]

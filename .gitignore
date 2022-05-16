@@ -16,6 +16,7 @@ build/
 
 # Log files
 *.log
+*.png
 
 # Package files
 *.jar
@@ -39,4 +40,5 @@ Thumbs.db
 tests_output/
 screens/
 
+# local env file
 .env

@@ -20,13 +20,15 @@ Build Dockerfile
 
 Run single container in local
 
-- `./run-local.sh`
+- `./run-local.sh teacher room123 teacher1`
+- `./run-local.sh student room123 student1`
 
 Push newversion of container image to ECR
 
+- Requirement: AWS access with permission to push to KidsLoop ECR
 - increase version number in VERSION
-- `push-to-ecr.sh`
+- `./push-to-ecr.sh`
 
 ## K8S Set up
 
-[K8S Readme](k8s/README.md)
+[K8S Readme](k8s/)
