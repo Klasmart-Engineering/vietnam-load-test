@@ -1,9 +1,9 @@
 #!/bin/bash
 set -aeuo pipefail
 
-[ -z $DISPLAY ] && DISPLAY=":99.0"
-[ -z $RESOLUTION ] && RESOLUTION="1920x1080x32"
-[ -z $TEST_NAME ] && TEST_NAME="testInHouseStay30MinutesInLive"
+DISPLAY=${DISPLAY:-':99.0'}
+RESOLUTION=${RESOLUTION:-'1920x1080x32'}
+TEST_NAME=${TEST_NAME:-'testInHouseStay30MinutesInLive'}
 
 rm -f ./screens/*
 echo "DISPLAY: ${DISPLAY}"
