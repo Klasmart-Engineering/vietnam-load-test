@@ -10,15 +10,15 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   namespace: ${K8S_NAMESPACE}
-  name: "nightwatch-job-${PARTICIPANTID}"
+  name: "${JOB_NAME}-${PARTICIPANTID}"
   labels:
-    job: "nightwatch"
+    job: "${JOB_NAME}"
 spec:
   ttlSecondsAfterFinished: 10
   template:
     metadata:
       labels:
-        job: "nightwatch"
+        job: "${JOB_NAME}"
     spec:
       hostNetwork: true
 #      dnsPolicy: ClusterFirstWithHostNet
@@ -26,7 +26,7 @@ spec:
         - name: ${IMAGE_PULL_SECRET}
       restartPolicy: OnFailure
       containers:      
-      - name: nightwatch-job      
+      - name: ${JOB_NAME}      
         image: ${ECR_DOMAIN}/${ECR_REPO}:${VERSION}
         imagePullPolicy: IfNotPresent     
         env:
@@ -36,6 +36,12 @@ spec:
             value: "${ROOMID}" 
           - name: PARTICIPANTID
             value: "${PARTICIPANTID}"
+          - name: DISPLAY
+            value: "${DISPLAY}"
+          - name: RESOLUTION
+            value: "${RESOLUTION}"
+          - name: TEST_NAME
+            value: "${TEST_NAME}"                                    
         resources:
           requests:
             cpu: 250m
