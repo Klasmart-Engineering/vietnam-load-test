@@ -125,6 +125,7 @@ module.exports = {
             '--no-sandbox',
             '--headless',
             '--disable-gpu', 
+            '--window-size=1920x1080',
             '--disable-software-rasterizer', 
             '--disable-dev-shm-usage'
             //'--ignore-certificate-errors',
