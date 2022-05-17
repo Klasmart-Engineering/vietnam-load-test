@@ -23,11 +23,11 @@ spec:
       hostNetwork: true
 #      dnsPolicy: ClusterFirstWithHostNet
       imagePullSecrets:
-        - name: ecr-registry-infra-singapore
+        - name: ${IMAGE_PULL_SECRET}
       restartPolicy: OnFailure
       containers:      
       - name: nightwatch-job      
-        image: 942095822719.dkr.ecr.ap-southeast-1.amazonaws.com/loadtesting-load-generation-system:${VERSION}
+        image: ${ECR_DOMAIN}/${ECR_REPO}:${VERSION}
         imagePullPolicy: IfNotPresent     
         env:
           - name: GROUPNAME
