@@ -21,7 +21,17 @@ Please note the image pull secret has expiration time. Run `./k8s/make_credentia
 
 ## Start the jobs
 
-- Change the value of CONCURRENT_CLASSES and STUDENTS in `.env` file
+- Change the values for the test in `.env` file
+```
+# TEST
+TEST_NAME="testInHouseStay30MinutesInLive"  
+## number of teacher = number of classes 
+CONCURRENT_CLASSES=1
+## if we want to do test with 20 participants per class, set STUDENTS=19
+STUDENTS=3
+```
+Default test is `testInHouseStay30MinutesInLive`
+All test name could be found at [package.json](../package.json)
 - Run `./runK8SJobs.sh`
 
 ## Stop the jobs

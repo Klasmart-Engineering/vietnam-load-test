@@ -11,6 +11,7 @@ Install dependencies:
 Start test inHouse Live Class:
 
 - `npm run testInHouseStay30MinutesInLive`
+- `npm run testInHouseStay30MinutesWithObserveMode`
 
 ## Run in Container
 
@@ -20,8 +21,9 @@ Build Dockerfile
 
 Run single container in local
 
-- `./run-local.sh teacher room123 teacher1`
-- `./run-local.sh student room123 student1`
+Example: Test stay in class & observe mode
+- `./run-local.sh testInHouseStay30MinutesWithObserveMode teacher room123 teacher1`
+- `./run-local.sh testInHouseStay30MinutesWithObserveMode student room123 student1`
 
 Push newversion of container image to ECR
 
