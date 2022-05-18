@@ -23,7 +23,7 @@ RUN set -x \
 && ${APT} install apt-utils >/dev/null \
 && mv 70debconf /etc/apt/apt.conf.d \
 && ${APT} upgrade >/dev/null \
-&& ${APT} install npm curl vim wget libappindicator1 fonts-liberation
+&& ${APT} install npm curl vim wget unzip libappindicator1 fonts-liberation
 
 ## Install Chrome
 RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -P /tmp
@@ -36,6 +36,12 @@ COPY . /mnt/nightwatchjs/
 WORKDIR /mnt/nightwatchjs/
 RUN npm i
 ENV DISPLAY ":99.0"
+
+## Install AWS CLI
+RUN curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip \
+  && unzip awscliv2.zip \
+  && ./aws/install \
+  && rm -rf aws awscliv2.zip
 
 ## Clean up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
