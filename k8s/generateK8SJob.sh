@@ -57,7 +57,11 @@ spec:
           - name: ENVIRONMENT
             value: "${ENVIRONMENT}"
           - name: STORAGE_ENDPOINT
-            value: "${STORAGE_ENDPOINT}"                                                                                                        
+            value: "${STORAGE_ENDPOINT}"
+          - name: STORAGE_ENDPOINT
+            value: "${STORAGE_ENDPOINT}"
+          - name: STORAGE_BUCKET
+            value: "${STORAGE_BUCKET}"                                                                                                                                
         resources:
           requests:
             cpu: 250m
