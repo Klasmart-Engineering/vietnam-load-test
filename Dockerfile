@@ -30,18 +30,18 @@ RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd6
 RUN ${APT} install /tmp/google-chrome-stable_current_amd64.deb
 RUN ${APT} install xorg xvfb gtk2-engines-pixbuf dbus-x11 xfonts-base xfonts-100dpi xfonts-75dpi xfonts-cyrillic xfonts-scalable imagemagick x11-apps
 
+## Install AWS CLI
+RUN curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip \
+  && unzip awscliv2.zip \
+  && ./aws/install \
+  && rm -rf aws awscliv2.zip
+  
 ## Prepare NightWatchJS
 RUN mkdir -p /mnt/nightwatchjs/
 COPY . /mnt/nightwatchjs/
 WORKDIR /mnt/nightwatchjs/
 RUN npm i
 ENV DISPLAY ":99.0"
-
-## Install AWS CLI
-RUN curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip \
-  && unzip awscliv2.zip \
-  && ./aws/install \
-  && rm -rf aws awscliv2.zip
 
 ## Clean up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

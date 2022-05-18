@@ -61,7 +61,9 @@ spec:
           - name: STORAGE_ENDPOINT
             value: "${STORAGE_ENDPOINT}"
           - name: STORAGE_BUCKET
-            value: "${STORAGE_BUCKET}"                                                                                                                                
+            value: "${STORAGE_BUCKET}"
+          - name: RUN_TIME
+            value: "${RUN_TIME}"                                                                                                                                            
         resources:
           requests:
             cpu: 250m
