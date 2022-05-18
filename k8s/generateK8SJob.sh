@@ -48,12 +48,12 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: ${S3_SECRET_NAME}
-                key: aws_access_key_id
+                key: aws-access-key-id
           - name: AWS_SECRET_ACCESS_KEY
             valueFrom:
               secretKeyRef:
                 name: ${S3_SECRET_NAME}
-                key: secret_access_key
+                key: aws-secret-access-key
           - name: ENVIRONMENT
             value: "${ENVIRONMENT}"
           - name: STORAGE_ENDPOINT

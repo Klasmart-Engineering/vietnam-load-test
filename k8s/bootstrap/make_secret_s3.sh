@@ -3,8 +3,6 @@ set +xeuo pipefail
 
 source .env
 
-NS_KIDSLOOP=$(../../scripts/python/env_var.py $ENV $ENUM_NS_KIDSLOOP_VAR)
-
 echo -n "S3 Bucket Access Key ID: "
 while read access_key_id; do
   if [[ ! -z "$access_key_id" ]]; then
@@ -19,21 +17,17 @@ while read secret_access_key; do
   fi
 done
 
-CREDS=$(cat <<EOF | base64 | sed 's/^/    /g'
-[default]
-aws_access_key_id = $access_key_id
-aws_secret_access_key = $secret_access_key
-EOF
-)
+kubectl create secret generic $S3_SECRET_NAME \
+  --dry-run=client \
+  -o yaml \
+  -n $K8S_NAMESPACE \
+  --from-literal=aws-access-key-id="$access_key_id" \
+  --from-literal=aws-secret-access-key="$secret_access_key" \
+  > $S3_SECRET_NAME.yaml
 
-cat <<EOF | kubectl apply -f -
-apiVersion: v1
-kind: Secret
-metadata:
-  name: ${S3_SECRET_NAME}
-  namespace: ${K8S_NAMESPACE}
-data:
-  credentials: |
-$CREDS
-EOF
+kubectl delete secret --ignore-not-found=true -n $K8S_NAMESPACE $S3_SECRET_NAME
+kubectl apply -f $S3_SECRET_NAME.yaml
+  
+
+rm $S3_SECRET_NAME.yaml
 
