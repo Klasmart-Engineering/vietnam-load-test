@@ -8,8 +8,6 @@ fi
 
 source .env
 
-#kubectl delete job -n ${K8S_NAMESPACE} $(kubectl get jobs -n ${K8S_NAMESPACE} | grep ${JOB_NAME} | awk '{print $1}')
-
 PODS_LIST=($(kubectl get pods -n ${K8S_NAMESPACE} | grep ${JOB_NAME} | awk '{print $1}'))
 
 for pod in "${PODS_LIST[@]}"
