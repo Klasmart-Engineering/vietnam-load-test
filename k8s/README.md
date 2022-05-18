@@ -2,26 +2,31 @@
 
 ## Requirements
 
-Tool:
-- bash
-- kubectl 
+- Tool:
+  - bash
+  - kubectl 
+- Credentials:
+  - AWS access with permission to pull container images from KidsLoop ECR ( `037865799674` a.k.a `kl-int-data`) 
 
-Infra:
-- Create new K8S Cluster (EKS, VNGC-K8S, etc.)
-- Set up kubectl on local to work with the cluster
+- Infra:
+  - Create new K8S Cluster (EKS, VNGC-K8S, etc.) for NightwatchJS
+  - Set up kubectl on local to work with the cluster ( put KUBECONFIG to `~/.kube/config`)
 
 ## Bootstrap
 
-- copy `.env.example` to `.env`
-- Create new namespace `./bootstrap/create_namespace.sh`
-- Create ECR credential `./bootstrap/make_secret_ecr_infra.sh`
-- Create Image Pull Secret `./bootstrap/make_credentials_ecr_infra.sh`. 
+Prepare some necessary credentials for K8S jobs
+
+1. Copy `.env.example` to `.env`; edit `.env` for specific usage
+2. Create new namespace `./bootstrap/create_namespace.sh`
+3. Create ECR credential `./bootstrap/make_secret_ecr_infra.sh`; this is used to make docker-registry secret in the next step
+4. Create Image Pull Secret `./bootstrap/make_credentials_ecr_infra.sh`; for the jobs to have permission to pull container images from ECR 
+5. Create K8S Secret for AWS S3 Credential: `./bootstrap/make_secret_s3.sh`
 
 Please note the image pull secret has expiration time. Run `./k8s/make_credentials_ecr_infra.sh` before every job start or check the [cronjob](https://github.com/KL-Engineering/vietnam-helm/blob/main/k8s/helm/helmfile.d/kidsloop.yaml#L43-L62) in vietnam-helm 
 
 ## Start the jobs
 
-- Change the values for the test in `.env` file
+1. To change the number of participants or the number of concurrent classes, change the values for the test in `.env` file
 ```
 # TEST
 TEST_NAME="testInHouseStay30MinutesInLive"  
@@ -32,8 +37,9 @@ STUDENTS=3
 ```
 Default test is `testInHouseStay30MinutesInLive`
 All test name could be found at [package.json](../package.json)
-- Run `./runK8SJobs.sh`
+2. Run `./runK8SJobs.sh`; this script will create K8S jobs in NightwatchJS K8S Cluster
 
 ## Stop the jobs
-
+ 
 - `./stop.sh`
+This stop script finds all the running pods which names match the defined job name & stop it.
