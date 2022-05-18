@@ -41,7 +41,23 @@ spec:
           - name: RESOLUTION
             value: "${RESOLUTION}"
           - name: TEST_NAME
-            value: "${TEST_NAME}"                                    
+            value: "${TEST_NAME}"
+          - name: AWS_REGION
+            value: "${AWS_REGION}"
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: ${S3_SECRET_NAME}
+                key: aws_access_key_id
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: ${S3_SECRET_NAME}
+                key: secret_access_key
+          - name: ENVIRONMENT
+            value: "${ENVIRONMENT}"
+          - name: STORAGE_ENDPOINT
+            value: "${STORAGE_ENDPOINT}"                                                                                                        
         resources:
           requests:
             cpu: 250m

@@ -30,7 +30,7 @@ cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Secret
 metadata:
-  name: loadtest-logs-s3-secret
+  name: ${S3_SECRET_NAME}
   namespace: ${K8S_NAMESPACE}
 data:
   credentials: |
