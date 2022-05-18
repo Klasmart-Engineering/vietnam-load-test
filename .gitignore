@@ -39,6 +39,7 @@ Thumbs.db
 
 tests_output/
 screens/
+reports/
 
 # local env file
 .env
