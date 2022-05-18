@@ -1,4 +1,6 @@
-# Vietnam Load Test
+# Vietnam Load Test (NightwatchJS)
+
+## Run in local (by NPM)
 
 ### Installation
 
@@ -15,22 +17,17 @@ Start test inHouse Live Class:
 
 ## Run in Container
 
-Build Dockerfile
+- Build Dockerfile: `./build.sh`
 
-- `./build.sh`
+- Run container in local. Example: 
+  - `./run-local.sh testInHouseStay30MinutesWithObserveMode teacher room123 teacher1`
+  - `./run-local.sh testInHouseStay30MinutesWithObserveMode student room123 student1`
+  - `./run-local.sh testOutputandLogs student room123 student1`
 
-Run single container in local
-
-Example: Test stay in class & observe mode
-- `./run-local.sh testInHouseStay30MinutesWithObserveMode teacher room123 teacher1`
-- `./run-local.sh testInHouseStay30MinutesWithObserveMode student room123 student1`
-- `./run-local.sh testOutputandLogs student room123 student1`
-
-Push newversion of container image to ECR
-
-- Requirement: AWS access with permission to push to KidsLoop ECR
-- increase version number in VERSION
-- `./push-to-ecr.sh`. Or just let [Github Actions](.github/workflows/branch-main.yml) do it
+- Push newversion of container image to ECR
+  - Requirement: AWS access with permission to push to KidsLoop ECR
+  - increase version number in VERSION
+  - `./push-to-ecr.sh`. Or just let [Github Actions](.github/workflows/branch-main.yml) do it
 
 ## K8S Set up
 
