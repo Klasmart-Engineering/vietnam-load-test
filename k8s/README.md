@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Tool:
+- Tools:
   - bash
   - kubectl 
 - Credentials:
@@ -26,7 +26,9 @@ Please note the image pull secret has expiration time. Run `./k8s/make_credentia
 
 ## Start the jobs
 
-1. To change the number of participants or the number of concurrent classes, change the values for the test in `.env` file
+- To change the number of participants or the number of concurrent classes, change the values of `CONCURRENT_CLASSES` and `STUDENTS` in `.env` file
+- To change the test scenario, change the value of `TEST_NAME` in `.env` file. Default test is `testInHouseStay30MinutesInLive`. All test name could be found at [package.json](../package.json)
+
 ```
 # TEST
 TEST_NAME="testInHouseStay30MinutesInLive"  
@@ -35,11 +37,27 @@ CONCURRENT_CLASSES=1
 ## if we want to do test with 20 participants per class, set STUDENTS=19
 STUDENTS=3
 ```
-Default test is `testInHouseStay30MinutesInLive`
-All test name could be found at [package.json](../package.json)
-2. Run `./runK8SJobs.sh`; this script will create K8S jobs in NightwatchJS K8S Cluster
+
+- Run `./runK8SJobs.sh`; this script will create K8S jobs in NightwatchJS K8S Cluster
 
 ## Stop the jobs
  
 - `./stop.sh`
+
 This stop script finds all the running pods which names match the defined job name & stop it.
+
+
+## Reports
+
+Modify the info of S3 bucket for saving the logs in `.env`
+
+
+```
+# S3
+AWS_REGION=ap-southeast-1
+STORAGE_ENDPOINT=https://s3.ap-southeast-1.amazonaws.com
+STORAGE_BUCKET=loadtest-logs
+```
+
+Set `ENVIRONMENT` in `.env` to `local` or unset it will disable Report process.
+
