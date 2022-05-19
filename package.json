@@ -8,7 +8,8 @@
     "testAllInLive": "npx nightwatch tests/loadero/loadtest.kidsloop.vn/clickAllButtonsInLive.js --config teacher.nightwatch.conf.js --env chrome",
     "testInHouseStay30MinutesInLive": "bash scripts/inHouse/testStay30MinutesInLive.sh",
     "testInHouseStay30MinutesWithObserveMode": "bash scripts/inHouse/testStay30MinutesWithObserveMode.sh",
-    "testLocalStay30MinutesWithObserveMode": "bash scripts/local/testStay30MinutesWithObserveMode.sh"
+    "testLocalStay30MinutesWithObserveMode": "bash scripts/local/testStay30MinutesWithObserveMode.sh",
+    "getLoaderoRoomIds": "for i in {0..19}; do echo \"class-$i\"; done;"
   },
   "dependencies": {
     "jsonwebtoken": "^8.5.1",
