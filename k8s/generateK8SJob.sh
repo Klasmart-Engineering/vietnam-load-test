@@ -10,24 +10,24 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   namespace: ${K8S_NAMESPACE}
-  name: "nightwatch-job-${PARTICIPANTID}"
+  name: "${JOB_NAME}-${PARTICIPANTID}"
   labels:
-    job: "nightwatch"
+    job: "${JOB_NAME}"
 spec:
   ttlSecondsAfterFinished: 10
   template:
     metadata:
       labels:
-        job: "nightwatch"
+        job: "${JOB_NAME}"
     spec:
       hostNetwork: true
 #      dnsPolicy: ClusterFirstWithHostNet
       imagePullSecrets:
-        - name: ecr-registry-infra-singapore
+        - name: ${IMAGE_PULL_SECRET}
       restartPolicy: OnFailure
       containers:      
-      - name: nightwatch-job      
-        image: 942095822719.dkr.ecr.ap-southeast-1.amazonaws.com/loadtesting-load-generation-system:${VERSION}
+      - name: ${JOB_NAME}      
+        image: ${ECR_DOMAIN}/${ECR_REPO}:${VERSION}
         imagePullPolicy: IfNotPresent     
         env:
           - name: GROUPNAME
@@ -36,6 +36,34 @@ spec:
             value: "${ROOMID}" 
           - name: PARTICIPANTID
             value: "${PARTICIPANTID}"
+          - name: DISPLAY
+            value: "${DISPLAY}"
+          - name: RESOLUTION
+            value: "${RESOLUTION}"
+          - name: TEST_NAME
+            value: "${TEST_NAME}"
+          - name: AWS_REGION
+            value: "${AWS_REGION}"
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: ${S3_SECRET_NAME}
+                key: aws-access-key-id
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: ${S3_SECRET_NAME}
+                key: aws-secret-access-key
+          - name: ENVIRONMENT
+            value: "${ENVIRONMENT}"
+          - name: STORAGE_ENDPOINT
+            value: "${STORAGE_ENDPOINT}"
+          - name: STORAGE_ENDPOINT
+            value: "${STORAGE_ENDPOINT}"
+          - name: STORAGE_BUCKET
+            value: "${STORAGE_BUCKET}"
+          - name: RUN_TIME
+            value: "${RUN_TIME}"                                                                                                                                            
         resources:
           requests:
             cpu: 250m

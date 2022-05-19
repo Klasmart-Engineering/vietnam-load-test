@@ -8,4 +8,4 @@ fi
 
 source .env
 
-kubectl delete job -n ${K8S_NAMESPACE} $(kubectl get jobs -n ${K8S_NAMESPACE} | grep nightwatch-job | awk '{print $1}')
+kubectl delete job -n ${K8S_NAMESPACE} $(kubectl get jobs -n ${K8S_NAMESPACE} | grep ${JOB_NAME} | awk '{print $1}')

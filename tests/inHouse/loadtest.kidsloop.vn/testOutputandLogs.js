@@ -1,7 +1,7 @@
 var jwt = require('jsonwebtoken');
 
 module.exports = {
-  'Stay 30 minutes in Live & Observe mode': (client) => {
+  'Test Output and Logs': (client) => {
 
     const getArgument = (name) => {
         const arguments = process.argv || [];
@@ -58,9 +58,9 @@ module.exports = {
     const minute = 60 * second;
     const timeout = 10 * 1000;
 
-    const presentTime = 2 * minute;
-    const actionTime = 3 * minute;
-    const observeTime = 5 * minute;
+    const presentTime = 1 * minute;
+    const actionTime = 1 * minute;
+    const observeTime = 1 * minute;
 
     let url = `https://live.${DOMAIN}/?token=`;
     let queryParams = '&selectionStrategy=random';
@@ -244,12 +244,12 @@ module.exports = {
     const teacherActionFlow = () => {
       // TODO: Implement test case here
       const {buttons} = selectors;
-      client.pause(5*minute);
+      client.pause(1*minute);
       waitAndClick(buttons.viewModes);
       waitAndClick(buttons.observe);
-      client.pause(5*minute);
+      client.pause(1*minute);
       client.takeScreenshot(`${PARTICIPANT_ID}-joinRoomAfter5m-${formatDate(new Date())}.png`);
-      client.pause(30 * minute);
+      client.pause(1 * minute);
       client.takeScreenshot(`${PARTICIPANT_ID}-finish-${formatDate(new Date())}.png`);
     }
     // Loop of actions for participants
@@ -257,9 +257,9 @@ module.exports = {
       // TODO: Implement test case here
       const {buttons} = selectors;
       
-      client.pause(10*minute);
+      client.pause(1*minute);
       client.takeScreenshot(`${PARTICIPANT_ID}-joinRoomAfter5m-${formatDate(new Date())}.png`);
-      client.pause(30 * minute);
+      client.pause(1 * minute);
       client.takeScreenshot(`${PARTICIPANT_ID}-finish-${formatDate(new Date())}.png`);
     };
 

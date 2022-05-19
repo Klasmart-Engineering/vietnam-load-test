@@ -9,11 +9,13 @@
     "testInHouseStay30MinutesInLive": "bash scripts/inHouse/testStay30MinutesInLive.sh",
     "testInHouseStay30MinutesWithObserveMode": "bash scripts/inHouse/testStay30MinutesWithObserveMode.sh",
     "testLocalStay30MinutesWithObserveMode": "bash scripts/local/testStay30MinutesWithObserveMode.sh",
+    "testOutputandLogs": "bash scripts/inHouse/testOutputandLogs.sh",
     "getLoaderoRoomIds": "for i in {0..19}; do echo \"class-$i\"; done;"
   },
   "dependencies": {
     "jsonwebtoken": "^8.5.1",
-    "nightwatch": "^2.0.10"
+    "nightwatch": "^2.0.10",
+    "nightwatch-html-reporter": "^2.0.6"
   },
   "devDependencies": {
     "chromedriver": "101.0.0",
