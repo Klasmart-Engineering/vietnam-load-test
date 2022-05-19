@@ -9,8 +9,7 @@
     "testInHouseStay30MinutesInLive": "bash scripts/inHouse/testStay30MinutesInLive.sh",
     "testInHouseStay30MinutesWithObserveMode": "bash scripts/inHouse/testStay30MinutesWithObserveMode.sh",
     "testLocalStay30MinutesWithObserveMode": "bash scripts/local/testStay30MinutesWithObserveMode.sh",
-    "testOutputandLogs": "bash scripts/inHouse/testOutputandLogs.sh",
-    "getLoaderoRoomIds": "for i in {0..19}; do echo \"class-$i\"; done;"
+    "testOutputandLogs": "bash scripts/inHouse/testOutputandLogs.sh"
   },
   "dependencies": {
     "jsonwebtoken": "^8.5.1",
