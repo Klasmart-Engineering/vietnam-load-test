@@ -67,13 +67,11 @@ By default, `LOADERO_ENABLED=false`. Change it to `LOADERO_ENABLED=true` to enab
 
 To collect project_id, test_id & group_id, For example:
 
-Project `KidsLoop` has ID `10560`:
-  https://app.loadero.com/projects/10560/tests/
-Test `[Vietnam] Assistant teacher in Live class (loadtest.kidsloop.vn)` has ID `14341`:
-  https://app.loadero.com/projects/10560/tests/14341/groups/
-The Group ID of test `14341` is `58103`
-  https://app.loadero.com/projects/10560/tests/14341/groups/58103/participants/
-then:
+- Project `KidsLoop` has ID `10560` ( https://app.loadero.com/projects/10560/tests/ )
+- Test `[Vietnam] Assistant teacher in Live class (loadtest.kidsloop.vn)` has ID `14341` ( https://app.loadero.com/projects/10560/tests/14341/groups/ )
+- The Group ID of test `14341` is `58103` ( https://app.loadero.com/projects/10560/tests/14341/groups/58103/participants/ )
+
+Therefore
 
 ```
 LOADERO_PROJECT_ID=10560
