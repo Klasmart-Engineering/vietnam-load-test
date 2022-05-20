@@ -22,7 +22,7 @@ do
 	do
 		student_id="${room_id}student${student}"
 		echo "=========="
-    	echo "Participant: ${student_id}, class: ${room_id}, teacher: ${teacher_id}"
+		echo "Participant: ${student_id}, class: ${room_id}, teacher: ${teacher_id}"
 		### Run student job
 		./generateK8SJob.sh student $room_id $student_id
 	done
