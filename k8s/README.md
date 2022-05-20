@@ -22,7 +22,7 @@ Prepare some necessary credentials for K8S jobs
 4. Create Image Pull Secret `./bootstrap/make_credentials_ecr_infra.sh`; for the jobs to have permission to pull container images from ECR 
 5. Create K8S Secret for AWS S3 Credential: `./bootstrap/make_secret_s3.sh`
 
-Please note the image pull secret has expiration time. Run `./k8s/make_credentials_ecr_infra.sh` before every job start or check the [cronjob](https://github.com/KL-Engineering/vietnam-helm/blob/main/k8s/helm/helmfile.d/kidsloop.yaml#L43-L62) in vietnam-helm 
+Please note the image pull secret has expiration time. Run `./bootstrap/make_credentials_ecr_infra.sh` before every job start or check the [cronjob](https://github.com/KL-Engineering/vietnam-helm/blob/main/k8s/helm/helmfile.d/kidsloop.yaml#L43-L62) in vietnam-helm 
 
 ## Start the jobs
 
@@ -38,14 +38,14 @@ CONCURRENT_CLASSES=1
 STUDENTS=3
 ```
 
-- Run `./runK8SJobs.sh`; this script will create K8S jobs in NightwatchJS K8S Cluster
+- Run `./start_k8s_jobs.sh`; this script will create K8S jobs in NightwatchJS K8S Cluster
 
 ## Stop the jobs
  
-- `./stop.sh`
+- `./stop_k8s_jobs.sh`
 
 This stop script finds all the running pods which names match the defined job name & stop it.
-
+The jobs could stop by themselves. This stop script is only used to force stop them.
 
 ## Reports
 
@@ -61,3 +61,23 @@ STORAGE_BUCKET=loadtest-logs
 
 Set `ENVIRONMENT` in `.env` to `local` or unset it will disable Report process.
 
+## LOADERO (Optional)
+
+By default, `LOADERO_ENABLED=false`. Change it to `LOADERO_ENABLED=true` to enable "loadero" participants.
+
+To collect project_id, test_id & group_id, For example:
+
+> Project `KidsLoop` has ID `10560`:
+>    https://app.loadero.com/projects/10560/tests/
+> Test `[Vietnam] Assistant teacher in Live class (loadtest.kidsloop.vn)` has ID `14341`:
+>    https://app.loadero.com/projects/10560/tests/14341/groups/
+> The Group ID of test `14341` is `58103`
+>    https://app.loadero.com/projects/10560/tests/14341/groups/58103/participants/
+> then:
+> > LOADERO_PROJECT_ID=10560
+> > LOADERO_TEST_ID=14341
+> > LOADERO_GROUP_ID=58103
+
+## Misc.
+
+To copy all screenshots from pods to local, try: `./copy_screenshots.sh`.
