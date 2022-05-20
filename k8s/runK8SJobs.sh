@@ -33,8 +33,8 @@ done
 curl -X PUT "https://api.loadero.com/v2/projects/${LOADERO_PROJECT_ID}/tests/${LOADERO_TEST_ID}/groups/${LOADERO_GROUP_ID}/" \
 -d "{\"name\": \"Class\", \"count\": ${CONCURRENT_CLASSES}}" \
 -H "Content-Type: application/json" \
--H "Authorization: LoaderoAuth ${LOADERO_ACCESS_TOKEN}"
+-H "Authorization: ${LOADERO_ACCESS_TOKEN}"
 
 ### Run loadero
 curl -X POST  "https://api.loadero.com/v2/projects/${LOADERO_PROJECT_ID}/tests/${LOADERO_TEST_ID}/runs/" \
--H "Authorization: LoaderoAuth ${LOADERO_ACCESS_TOKEN}"
+-H "Authorization: ${LOADERO_ACCESS_TOKEN}"
