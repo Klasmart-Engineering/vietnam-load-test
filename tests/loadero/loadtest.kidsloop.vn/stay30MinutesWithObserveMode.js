@@ -1,20 +1,20 @@
-const jwt = require('jsonwebtoken');
-const globalModule = require('../../globals');
+var jwt = require('jsonwebtoken');
 
-module.exports = globalModule({
-  'Stay 30 minutes in Live': (client) => {
-
-    const getArgument = (name) => {
-        const arguments = process.argv || [];
-        return arguments.find( (arg, index) => index > 0 && arguments[index - 1] === name);
-    }
+module.exports = {
+  'Stay 30 minutes in Live & Observe mode': (client) => {
 
     // ----------------------------
     // Test configuration settings.
     // ----------------------------
-    const ROOM_ID = getArgument(`--room_id`);
-    const GROUP_NAME = getArgument(`--group_name`);
-    const PARTICIPANT_ID = getArgument(`--participant_id`);
+
+    //Group name
+    const TEACHER = 'teacher';
+    const ASSISTANT_TEACHER = 'assistant-teacher';
+    const STUDENT = 'student';
+
+    const ROOM_ID = `class${client.globals.group.id}`;
+    const GROUP_NAME = ASSISTANT_TEACHER;
+    const PARTICIPANT_ID = `teacher-2`;
     const PARTICIPANT_NAME = `${GROUP_NAME} - ${PARTICIPANT_ID}`;
 
     const DOMAIN = 'loadtest.kidsloop.vn';
@@ -65,9 +65,6 @@ module.exports = globalModule({
 
     let url = `https://live.${DOMAIN}/?token=`;
     let queryParams = '&selectionStrategy=random';
-
-    const TEACHER = 'teacher';
-    const STUDENT = 'student';
 
     const selectors = {
       homePage: {
@@ -242,12 +239,23 @@ module.exports = globalModule({
       waitAndClick(joiningClass.joinRoom);
     };
 
+    const teacherActionFlow = () => {
+      // TODO: Implement test case here
+      const {buttons} = selectors;
+      client.pause(5*minute);
+      waitAndClick(buttons.viewModes);
+      waitAndClick(buttons.observe);
+      client.pause(5*minute);
+      client.takeScreenshot(`${PARTICIPANT_ID}-joinRoomAfter5m-${formatDate(new Date())}.png`);
+      client.pause(30 * minute);
+      client.takeScreenshot(`${PARTICIPANT_ID}-finish-${formatDate(new Date())}.png`);
+    }
     // Loop of actions for participants
-    const actionFlow = () => {
+    const studentActionFlow = () => {
       // TODO: Implement test case here
       const {buttons} = selectors;
       
-      client.pause(5*minute);
+      client.pause(10*minute);
       client.takeScreenshot(`${PARTICIPANT_ID}-joinRoomAfter5m-${formatDate(new Date())}.png`);
       client.pause(30 * minute);
       client.takeScreenshot(`${PARTICIPANT_ID}-finish-${formatDate(new Date())}.png`);
@@ -263,8 +271,18 @@ module.exports = globalModule({
           ) + queryParams;
 
         joinClass();
-        actionFlow();
+        teacherActionFlow();
 
+        break;
+      case ASSISTANT_TEACHER:
+        url +=
+          generateTeacherAuthToken(
+            PARTICIPANT_NAME,
+            ROOM_ID
+          ) + queryParams;
+
+        joinClass();
+        studentActionFlow();
         break;
       case STUDENT:
         url +=
@@ -274,7 +292,7 @@ module.exports = globalModule({
           ) + queryParams;
 
         joinClass();
-        actionFlow();
+        studentActionFlow();
 
         break;
       default:
@@ -283,4 +301,4 @@ module.exports = globalModule({
         );
     }
   },
-});
+};

@@ -3,7 +3,8 @@ var HtmlReporter = require('nightwatch-html-reporter');
 var reporter = new HtmlReporter({
   openBrowser: false,
   reportsDirectory: __dirname + '/reports',
-  uniqueFilename: true,
+  reportFilename: process.env.PARTICIPANTID + '_selenium_report.html',
+  uniqueFilename: false,
 });
  
 module.exports = {
