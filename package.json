@@ -12,6 +12,7 @@
     "testOutputandLogs": "bash scripts/inHouse/testOutputandLogs.sh"
   },
   "dependencies": {
+    "fs-extra": "^10.1.0",
     "jsonwebtoken": "^8.5.1",
     "nightwatch": "^2.0.10",
     "nightwatch-html-reporter": "^2.0.6"

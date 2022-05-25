@@ -1,12 +1,14 @@
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+const globalModule = require('../../globals');
 
-module.exports = {
+module.exports = globalModule({
   'Stay 30 minutes in Live & Observe mode': (client) => {
-
     const getArgument = (name) => {
-        const arguments = process.argv || [];
-        return arguments.find( (arg, index) => index > 0 && arguments[index - 1] === name);
-    }
+      const arguments = process.argv || [];
+      return arguments.find(
+        (arg, index) => index > 0 && arguments[index - 1] === name
+      );
+    };
 
     // ----------------------------
     // Test configuration settings.
@@ -93,7 +95,8 @@ module.exports = {
         present: '[title="Present"]',
         observe: '[title="Observe"]',
         endCall: '#toolbar-item-call',
-        confirmEndClass: 'button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary',
+        confirmEndClass:
+          'button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary',
         pen: '#body > div:nth-child(2) > div > div > div:nth-child(1) > div',
         chat: 'div:nth-child(4) > div > button',
         chatInput: 'div:nth-child(3) > form',
@@ -142,20 +145,18 @@ module.exports = {
 
     const padTo2Digits = (num) => {
       return num.toString().padStart(2, '0');
-    }
+    };
 
     const formatDate = (date) => {
-      return (
-        [
-          date.getFullYear(),
-          padTo2Digits(date.getMonth() + 1),
-          padTo2Digits(date.getDate()),
-          padTo2Digits(date.getHours()),
-          padTo2Digits(date.getMinutes()),
-          padTo2Digits(date.getSeconds()),
-        ].join('-') 
-      );
-    }
+      return [
+        date.getFullYear(),
+        padTo2Digits(date.getMonth() + 1),
+        padTo2Digits(date.getDate()),
+        padTo2Digits(date.getHours()),
+        padTo2Digits(date.getMinutes()),
+        padTo2Digits(date.getSeconds()),
+      ].join('-');
+    };
 
     // Token generation functions
     const generateAccessToken = () => {
@@ -238,39 +239,45 @@ module.exports = {
         })
         .resizeWindow(1920, 1080);
 
+      client.pause(1000);
       waitAndClick(joiningClass.joinRoom);
     };
 
     const teacherActionFlow = () => {
       // TODO: Implement test case here
-      const {buttons} = selectors;
-      client.pause(5*minute);
+      const { buttons } = selectors;
+      client.pause(5 * minute);
       waitAndClick(buttons.viewModes);
       waitAndClick(buttons.observe);
-      client.pause(5*minute);
-      client.takeScreenshot(`${PARTICIPANT_ID}-joinRoomAfter5m-${formatDate(new Date())}.png`);
+      client.pause(5 * minute);
+      client.takeScreenshot(
+        `${PARTICIPANT_ID}-joinRoomAfter5m-${formatDate(new Date())}.png`
+      );
       client.pause(30 * minute);
-      client.takeScreenshot(`${PARTICIPANT_ID}-finish-${formatDate(new Date())}.png`);
-    }
+      client.takeScreenshot(
+        `${PARTICIPANT_ID}-finish-${formatDate(new Date())}.png`
+      );
+    };
     // Loop of actions for participants
     const studentActionFlow = () => {
       // TODO: Implement test case here
-      const {buttons} = selectors;
-      
-      client.pause(10*minute);
-      client.takeScreenshot(`${PARTICIPANT_ID}-joinRoomAfter5m-${formatDate(new Date())}.png`);
+      const { buttons } = selectors;
+
+      client.pause(10 * minute);
+      client.takeScreenshot(
+        `${PARTICIPANT_ID}-joinRoomAfter5m-${formatDate(new Date())}.png`
+      );
       client.pause(30 * minute);
-      client.takeScreenshot(`${PARTICIPANT_ID}-finish-${formatDate(new Date())}.png`);
+      client.takeScreenshot(
+        `${PARTICIPANT_ID}-finish-${formatDate(new Date())}.png`
+      );
     };
 
     // Account credentials setup.
     switch (GROUP_NAME.toLowerCase()) {
       case TEACHER:
         url +=
-          generateTeacherAuthToken(
-            PARTICIPANT_NAME,
-            ROOM_ID
-          ) + queryParams;
+          generateTeacherAuthToken(PARTICIPANT_NAME, ROOM_ID) + queryParams;
 
         joinClass();
         teacherActionFlow();
@@ -278,19 +285,14 @@ module.exports = {
         break;
       case STUDENT:
         url +=
-          generateStudentAuthToken(
-            PARTICIPANT_NAME,
-            ROOM_ID
-          ) + queryParams;
+          generateStudentAuthToken(PARTICIPANT_NAME, ROOM_ID) + queryParams;
 
         joinClass();
         studentActionFlow();
 
         break;
       default:
-        throw new Error(
-          `Invalid account type: ${PARTICIPANT_NAME}`
-        );
+        throw new Error(`Invalid account type: ${PARTICIPANT_NAME}`);
     }
   },
-};
+});

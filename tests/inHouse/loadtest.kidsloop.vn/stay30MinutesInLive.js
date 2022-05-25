@@ -1,6 +1,7 @@
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+const globalModule = require('../../globals');
 
-module.exports = {
+module.exports = globalModule({
   'Stay 30 minutes in Live': (client) => {
 
     const getArgument = (name) => {
@@ -282,4 +283,4 @@ module.exports = {
         );
     }
   },
-};
+});
