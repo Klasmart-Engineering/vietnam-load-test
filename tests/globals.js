@@ -1,13 +1,13 @@
 const fsExtra = require('fs-extra');
 const path = require('path');
 const webrtcTemplatePath = path.resolve(
-  process.cwd() + '/reportTemplates/webrtcReport'
+  process.cwd() + '/reportTemplates/webrtc'
 );
 const downloadPath = path.resolve(process.cwd() + '/downloads');
 const screenPath = path.resolve(process.cwd() + '/screens');
 const reportPath =
   path.resolve(process.cwd() + '/reports') +
-  `/${process.env.RUN_TIME}-${process.env.TEST_NAME}`;
+  `/${process.env.RUN_TIME}-${process.env.TEST_NAME}/${process.env.PARTICIPANTID}`;
 const webrtcReportPath = reportPath + '/webrtcReport';
 
 module.exports = function (options) {
@@ -48,7 +48,7 @@ module.exports = function (options) {
               console.error(result.error);
             } else {
               fsExtra.copySync(webrtcTemplatePath, webrtcReportPath);
-              fsExtra.copySync(
+              fsExtra.moveSync(
                 result.value.filePath,
                 webrtcReportPath + '/webrtc_internals_dump.txt'
               );
