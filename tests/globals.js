@@ -8,7 +8,7 @@ const screenPath = path.resolve(process.cwd() + '/screens');
 const reportPath =
   path.resolve(process.cwd() + '/reports') +
   `/${process.env.RUN_TIME}-${process.env.TEST_NAME}/${process.env.PARTICIPANTID}`;
-const webrtcReportPath = reportPath + '/webrtcReport';
+const webrtcReportPath = reportPath + '/webrtc';
 
 module.exports = function (options) {
   return Object.assign({}, options || {}, {
