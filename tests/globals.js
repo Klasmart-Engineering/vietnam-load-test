@@ -4,7 +4,10 @@ const webrtcTemplatePath = path.resolve(
   process.cwd() + '/reportTemplates/webrtcReport'
 );
 const downloadPath = path.resolve(process.cwd() + '/downloads');
-const reportPath = path.resolve(process.cwd() + '/reports');
+const screenPath = path.resolve(process.cwd() + '/screens');
+const reportPath =
+  path.resolve(process.cwd() + '/reports') +
+  `/${process.env.RUN_TIME}-${process.env.TEST_NAME}`;
 const webrtcReportPath = reportPath + '/webrtcReport';
 
 module.exports = function (options) {
@@ -13,6 +16,10 @@ module.exports = function (options) {
       //Remove all files in download directory
       fsExtra.emptyDirSync(downloadPath);
       client.url('chrome://webrtc-internals').openNewWindow();
+    },
+
+    after: (client) => {
+      fsExtra.moveSync(screenPath, reportPath + '/screens');
     },
 
     'Dump webrtc': (client) => {

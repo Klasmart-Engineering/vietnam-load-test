@@ -1,6 +1,7 @@
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+const globalModule = require('../../globals');
 
-module.exports = {
+module.exports = globalModule({
   'Test Output and Logs': (client) => {
 
     const getArgument = (name) => {
@@ -293,4 +294,4 @@ module.exports = {
         );
     }
   },
-};
+});
