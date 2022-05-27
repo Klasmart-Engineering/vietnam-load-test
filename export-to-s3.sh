@@ -1,6 +1,7 @@
 #!/bin/bash
 set -aeuo pipefail
-
+echo "----------"
+echo "Uploading report files to S3..."
 ENVIRONMENT=${ENVIRONMENT:-'local'}
 echo "ENVIRONMENT: ${ENVIRONMENT}"
 
