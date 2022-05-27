@@ -28,7 +28,7 @@ spec:
       containers:      
       - name: ${JOB_NAME}      
         image: ${ECR_DOMAIN}/${ECR_REPO}:${VERSION}
-        imagePullPolicy: IfNotPresent     
+        imagePullPolicy: Always     
         env:
           - name: GROUPNAME
             value: "${GROUPNAME}"
