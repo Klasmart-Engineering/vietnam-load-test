@@ -1,5 +1,16 @@
 # Vietnam Load Test (NightwatchJS)
 
+## Features
+
+- Run NightWatchJS as K8S Jobs
+- Support multiple Test scenarios
+- Reports Output:
+  - Screenshots during classtime
+  - Selenium Logs
+  - Webrtc logs
+- Notification:
+  - Slack
+
 ## Run in local (by NPM)
 
 ### Installation
