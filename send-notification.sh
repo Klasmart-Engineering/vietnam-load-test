@@ -15,8 +15,8 @@ if [ "$ENVIRONMENT" != "local" ]; then
 files_list=($(aws s3 ls --endpoint-url=$STORAGE_ENDPOINT --region $AWS_REGION --recursive s3://$STORAGE_BUCKET/$RUN_TIME-$TEST_NAME/$PARTICIPANTID | egrep "${REPORTS_FILES_LIST}" | awk '{print $4}'))
 
 ## prepare the reports file
-rm -f list && touch reports.html
-cat <<EOF |  > reports.html
+rm -f reports.html && touch reports.html
+cat <<EOF >> reports.html
 <!DOCTYPE html>
 <html>
 <title>KidsLoop Nightwatch JS Reports: ${PARTICIPANTID} | ${TEST_NAME}</title>
@@ -25,11 +25,11 @@ EOF
 
 for file in "${files_list[@]}"
 do
-    echo "<p>"
+    echo "<p>" >> reports.html
     echo "<a href="${REPORTS_DOMAIN}/$file">${file}</a><br>" >> reports.html
 done
 
-cat <<EOF |  >> reports.html
+cat <<EOF >> reports.html
 </body>
 </html>
 EOF
