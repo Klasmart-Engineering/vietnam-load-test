@@ -20,4 +20,7 @@ npm run ${TEST_NAME}
 ## Export Screenshots & Logs to S3
 ./export-to-s3.sh
 
+## Send notification
+./send-notification.sh
+
 exit 0
