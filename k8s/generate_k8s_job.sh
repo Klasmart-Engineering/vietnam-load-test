@@ -63,7 +63,17 @@ spec:
           - name: STORAGE_BUCKET
             value: "${STORAGE_BUCKET}"
           - name: RUN_TIME
-            value: "${RUN_TIME}"                                                                                                                                            
+            value: "${RUN_TIME}" 
+          - name: SLACK_CHANNEL
+            value: "${SLACK_CHANNEL}" 
+          - name: SLACK_IMCOMING_WEBHOOK_URL
+            value: "${SLACK_IMCOMING_WEBHOOK_URL}" 
+          - name: SLACK_EMOJI
+            value: "${SLACK_EMOJI}" 
+          - name: REPORTS_DOMAIN
+            value: "${REPORTS_DOMAIN}"
+          - name: REPORTS_FILES_LIST
+            value: "${REPORTS_FILES_LIST}"            
         resources:
           requests:
             cpu: 250m
