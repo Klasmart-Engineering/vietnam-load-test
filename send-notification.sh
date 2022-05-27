@@ -34,7 +34,7 @@ cat <<EOF >> reports.html
 </html>
 EOF
 
-aws s3 cp --endpoint-url=$STORAGE_ENDPOINT --region $AWS_REGION --recursive reports.html s3://$STORAGE_BUCKET/$RUN_TIME-$TEST_NAME/$PARTICIPANTID/reports.html
+aws s3 cp --endpoint-url=$STORAGE_ENDPOINT --region $AWS_REGION reports.html s3://$STORAGE_BUCKET/$RUN_TIME-$TEST_NAME/$PARTICIPANTID/reports.html
 curl -X POST --data-urlencode "payload={\"channel\": \"${SLACK_CHANNEL}\", \"username\": \"nightwatchjs-bot\", \"text\": \"${REPORTS_DOMAIN}\/$RUN_TIME-$TEST_NAME\/$PARTICIPANTID\/reports.html\", \"icon_emoji\": \"${SLACK_EMOJI}\"}" ${SLACK_IMCOMING_WEBHOOK_URL}
 
 fi
