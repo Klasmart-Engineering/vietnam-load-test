@@ -1,5 +1,7 @@
 #!/bin/bash
 set -aeuo pipefail
+
+rm -f index.html
 echo "----------"
 if [ "$ENVIRONMENT" != "local" ]; then
 echo "Download home html from S3..."
@@ -7,7 +9,7 @@ aws s3 cp --endpoint-url=$STORAGE_ENDPOINT --region $AWS_REGION s3://$STORAGE_BU
 fi
 
 testNameUrl=$(cat <<-END
-<p><a href="${REPORTS_DOMAIN}/$RUN_TIME-$TEST_NAME">$RUN_TIME-$TEST_NAME</a></p>
+<p><a target="_blank" href="${REPORTS_DOMAIN}/$RUN_TIME-$TEST_NAME">$RUN_TIME-$TEST_NAME</a></p>
 END
 )
 
@@ -20,7 +22,7 @@ echo "Create index.html..."
 cat <<EOF >> index.html
 <!DOCTYPE html>
 <html>
-    <title>KidsLoop Nightwatch JS Reports: $RUN_TIME-$TEST_NAME</title>
+    <title>KidsLoop Nightwatch JS Reports Home Page</title>
     <body>
         $testNameUrl
     </body>

@@ -29,6 +29,7 @@ do
 done
 
 ./generate_home_html.sh
+./generate_global_html.sh
 
 ## Run assistant teacher on Loadero
 if [ "$LOADERO_ENABLED" = true ] ; then
