@@ -46,7 +46,35 @@ module.exports = {
       },
 
       desiredCapabilities: {
-        browserName: 'firefox',
+        browserName: 'chrome',
+        'goog:chromeOptions': {
+          // More info on Chromedriver: https://sites.google.com/a/chromium.org/chromedriver/
+          //
+          // w3c:false tells Chromedriver to run using the legacy JSONWire protocol (not required in Chrome 78)
+          w3c: true,
+          args: [
+            '--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36',
+            '--use-fake-ui-for-media-stream',
+            '--use-fake-device-for-media-stream',
+            '--use-file-for-fake-video-capture=configs/white-noise-video.mjpeg',
+            '--use-file-for-fake-audio-capture=configs/white-noise-audio.wav',
+            '--no-sandbox',
+            '--headless',
+            '--disable-gpu',
+            '--window-size=1920x1080',
+            '--disable-software-rasterizer',
+            '--disable-dev-shm-usage',
+            // '--ignore-certificate-errors',
+            // '--allow-insecure-localhost',
+          ],
+          prefs: {
+            download: {
+              default_directory: require('path').resolve(
+                __dirname + '/downloads'
+              ),
+            },
+          },
+        }
       },
 
       webdriver: {

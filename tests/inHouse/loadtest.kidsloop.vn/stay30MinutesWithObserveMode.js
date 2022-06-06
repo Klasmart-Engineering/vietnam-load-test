@@ -1,22 +1,12 @@
 const jwt = require('jsonwebtoken');
+const { ROOM_ID, GROUP_NAME, PARTICIPANT_ID, PARTICIPANT_NAME } = require('../../../configs/config');
 const globalModule = require('../../globals');
 
 module.exports = globalModule({
   'Stay 30 minutes in Live & Observe mode': (client) => {
-    const getArgument = (name) => {
-      const arguments = process.argv || [];
-      return arguments.find(
-        (arg, index) => index > 0 && arguments[index - 1] === name
-      );
-    };
-
     // ----------------------------
     // Test configuration settings.
     // ----------------------------
-    const ROOM_ID = getArgument(`--room_id`);
-    const GROUP_NAME = getArgument(`--group_name`);
-    const PARTICIPANT_ID = getArgument(`--participant_id`);
-    const PARTICIPANT_NAME = `${GROUP_NAME} - ${PARTICIPANT_ID}`;
 
     const DOMAIN = 'loadtest.kidsloop.vn';
     const SECRET = `iXtZx1D5AqEB0B9pfn+hRQ==`;
@@ -246,17 +236,22 @@ module.exports = globalModule({
     const teacherActionFlow = () => {
       // TODO: Implement test case here
       const { buttons } = selectors;
-      client.pause(5 * minute);
-      waitAndClick(buttons.viewModes);
-      waitAndClick(buttons.observe);
-      client.pause(5 * minute);
+      client.pause(1000);
       client.takeScreenshot(
         `${PARTICIPANT_ID}-joinRoomAfter5m-${formatDate(new Date())}.png`
       );
-      client.pause(30 * minute);
-      client.takeScreenshot(
-        `${PARTICIPANT_ID}-finish-${formatDate(new Date())}.png`
-      );
+
+      // client.pause(5 * minute);
+      // waitAndClick(buttons.viewModes);
+      // waitAndClick(buttons.observe);
+      // client.pause(5 * minute);
+      // client.takeScreenshot(
+      //   `${PARTICIPANT_ID}-joinRoomAfter5m-${formatDate(new Date())}.png`
+      // );
+      // client.pause(30 * minute);
+      // client.takeScreenshot(
+      //   `${PARTICIPANT_ID}-finish-${formatDate(new Date())}.png`
+      // );
     };
     // Loop of actions for participants
     const studentActionFlow = () => {
