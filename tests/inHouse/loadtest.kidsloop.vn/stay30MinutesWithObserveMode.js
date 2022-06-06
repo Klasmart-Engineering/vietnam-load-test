@@ -236,22 +236,18 @@ module.exports = globalModule({
     const teacherActionFlow = () => {
       // TODO: Implement test case here
       const { buttons } = selectors;
-      client.pause(1000);
+
+      client.pause(5 * minute);
+      waitAndClick(buttons.viewModes);
+      waitAndClick(buttons.observe);
+      client.pause(5 * minute);
       client.takeScreenshot(
         `${PARTICIPANT_ID}-joinRoomAfter5m-${formatDate(new Date())}.png`
       );
-
-      // client.pause(5 * minute);
-      // waitAndClick(buttons.viewModes);
-      // waitAndClick(buttons.observe);
-      // client.pause(5 * minute);
-      // client.takeScreenshot(
-      //   `${PARTICIPANT_ID}-joinRoomAfter5m-${formatDate(new Date())}.png`
-      // );
-      // client.pause(30 * minute);
-      // client.takeScreenshot(
-      //   `${PARTICIPANT_ID}-finish-${formatDate(new Date())}.png`
-      // );
+      client.pause(30 * minute);
+      client.takeScreenshot(
+        `${PARTICIPANT_ID}-finish-${formatDate(new Date())}.png`
+      );
     };
     // Loop of actions for participants
     const studentActionFlow = () => {
