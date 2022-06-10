@@ -32,5 +32,5 @@ fi
 
 if [ "$ENVIRONMENT" != "local" ]; then
 echo "Upload home html to S3"
-aws s3 cp --endpoint-url$STORAGE_ENDPOINT --region $AWS_REGION --recursive index.html s3://STORAGE_BUCKET/index.html
+aws s3 cp --endpoint-url=$STORAGE_ENDPOINT --region $AWS_REGION index.html s3://$STORAGE_BUCKET/index.html
 fi
