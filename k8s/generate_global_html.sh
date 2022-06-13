@@ -4,7 +4,7 @@ set -aeuo pipefail
 mkdir $RUN_TIME-$TEST_NAME
 globalPath=$RUN_TIME-$TEST_NAME/index.html
 rm -f $globalPath && touch $globalPath
-cat <<EOF >> global.html
+cat <<EOF >> $globalPath
 <!DOCTYPE html>
 <html>
 <title>KidsLoop Nightwatch JS Reports: $RUN_TIME-$TEST_NAME</title>

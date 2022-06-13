@@ -9,7 +9,7 @@ aws s3 cp --endpoint-url=$STORAGE_ENDPOINT --region $AWS_REGION s3://$STORAGE_BU
 fi
 
 testNameUrl=$(cat <<-END
-<p><a target="_blank" href="${REPORTS_DOMAIN}/$RUN_TIME-$TEST_NAME">$RUN_TIME-$TEST_NAME</a></p>
+<p><a target="_blank" href="${REPORTS_DOMAIN}/$RUN_TIME-$TEST_NAME/index.html">$RUN_TIME-$TEST_NAME</a></p>
 END
 )
 
