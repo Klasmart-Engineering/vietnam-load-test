@@ -1,21 +1,13 @@
 const jwt = require('jsonwebtoken');
 const globalModule = require('../../globals');
+const { ROOM_ID, GROUP_NAME, PARTICIPANT_ID, PARTICIPANT_NAME } = require('../../../configs/config');
 
 module.exports = globalModule({
   'Test Output and Logs': (client) => {
 
-    const getArgument = (name) => {
-        const arguments = process.argv || [];
-        return arguments.find( (arg, index) => index > 0 && arguments[index - 1] === name);
-    }
-
     // ----------------------------
     // Test configuration settings.
     // ----------------------------
-    const ROOM_ID = getArgument(`--room_id`);
-    const GROUP_NAME = getArgument(`--group_name`);
-    const PARTICIPANT_ID = getArgument(`--participant_id`);
-    const PARTICIPANT_NAME = `${GROUP_NAME} - ${PARTICIPANT_ID}`;
 
     const DOMAIN = 'loadtest.kidsloop.vn';
     const SECRET = `iXtZx1D5AqEB0B9pfn+hRQ==`;
