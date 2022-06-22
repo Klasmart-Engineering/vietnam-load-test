@@ -3,7 +3,7 @@ set -aeuo pipefail
 echo "----------"
 echo "Sending notification to slack..."
 ENVIRONMENT=${ENVIRONMENT:-'local'}
-REPORTS_DOMAIN=${REPORTS_DOMAIN:-'https://reports.loadtest.kidsloop.vn'}
+REPORTS_DOMAIN=${REPORTS_DOMAIN:-'https://reports-loadtest.kidsloop.vn'}
 REPORTS_FILES_LIST=${REPORTS_FILES_LIST:-'png|html'}
 echo "ENVIRONMENT: ${ENVIRONMENT}"
 echo "REPORTS_DOMAIN: ${REPORTS_DOMAIN}"
