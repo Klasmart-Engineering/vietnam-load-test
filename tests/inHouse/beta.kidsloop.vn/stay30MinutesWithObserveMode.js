@@ -1,47 +1,53 @@
 const jwt = require('jsonwebtoken');
-const globalModule = require('../../globals');
 const { ROOM_ID, GROUP_NAME, PARTICIPANT_ID, PARTICIPANT_NAME } = require('../../../configs/config');
+const globalModule = require('../../globals');
 
 module.exports = globalModule({
-  'Stay 30 minutes in Live': (client) => {
+  'Stay 30 minutes in Live & Observe mode': (client) => {
     // ----------------------------
     // Test configuration settings.
     // ----------------------------
 
-    const DOMAIN = 'loadtest.kidsloop.vn';
+    const DOMAIN = 'beta.kidsloop.vn';
     const SECRET = `iXtZx1D5AqEB0B9pfn+hRQ==`;
     const ORG_ID = '94c33343-0736-4100-9c61-704f098b2453';
     const USER_ID = 'b2f7136b-7eaa-440a-8942-b18218ab4239';
     const CLASS_TYPE = 'live'; //live, class, study
     const MATERIALS = [
       {
-        id: '6258f2ffd1ecfd49d143a316',
-        name: 'Non H5P-Image - Welcome',
-        url: 'https://live.loadtest.kidsloop.vn/assets/6258f2dbb53568f5dd2f4812.png',
+        id: '60adc964b3eb96673eaf0ea3',
+        name: 'Image',
+        url: 'https://cdn-live.beta.kidsloop.vn/assets/60adc95eb3eb96673eaf0ea0.JPG',
         __typename: 'Image',
       },
       {
-        id: '6258f56a53d32ac59ec45993',
-        name: 'Find the words -number',
-        url: '/h5p/play/6258f49f2ad8bc8d4768478a',
+        id: '60adca33b3eb96673eaf0eed',
+        name: 'PDF',
+        url: 'assets/60adc9e7b3eb96673eaf0eea.pdf',
         __typename: 'Iframe',
       },
       {
-        id: '6257a21dfd8b189cf168cf63',
-        name: 'PDF file',
-        url: 'assets/6257a21954a34625f4c063a0.pdf',
+        id: '60adc9beb3eb96673eaf0ec2',
+        name: 'Video',
+        url: 'https://cdn-live.beta.kidsloop.vn/assets/60adc97db3eb96673eaf0ebf.mp4',
+        __typename: 'Video',
+      },
+      {
+        id: '60adc93fb3eb96673eaf0e7d',
+        name: 'Quiz1',
+        url: '/h5p/play/60adc939eaceec00120c3fcf',
         __typename: 'Iframe',
       },
       {
-        id: '6258f5c3b53568f5dd2f4964',
-        name: 'Course Presentation - dragdrop',
-        url: '/h5p/play/6258f0892ad8bc8d47684788',
+        id: '60adc913b3eb96673eaf0e5a',
+        name: 'Drag and Drop',
+        url: '/h5p/play/60adc90feaceec00120c3fce',
         __typename: 'Iframe',
       },
       {
-        id: '6258f3a9b53568f5dd2f486d',
-        name: 'PDF file',
-        url: 'assets/6258f3a61c4f2c1a0591cf1d.pdf',
+        id: '60adc750b3eb96673eaf0e06',
+        name: 'Image Pairing',
+        url: '/h5p/play/60adc746eaceec00120c3fc5',
         __typename: 'Iframe',
       },
     ];
@@ -66,7 +72,7 @@ module.exports = globalModule({
       },
       joiningClass: {
         goLive: '.MuiFab-label',
-        joinRoom: '.MuiTypography-root.MuiTypography-body1',
+        joinRoom: 'form > div > div:nth-child(3) > button',
       },
       livePage: {
         container: '#main-content',
@@ -85,7 +91,8 @@ module.exports = globalModule({
         present: '[title="Present"]',
         observe: '[title="Observe"]',
         endCall: '#toolbar-item-call',
-        confirmEndClass: 'button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary',
+        confirmEndClass:
+          'button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary',
         pen: '#body > div:nth-child(2) > div > div > div:nth-child(1) > div',
         chat: 'div:nth-child(4) > div > button',
         chatInput: 'div:nth-child(3) > form',
@@ -134,20 +141,18 @@ module.exports = globalModule({
 
     const padTo2Digits = (num) => {
       return num.toString().padStart(2, '0');
-    }
+    };
 
     const formatDate = (date) => {
-      return (
-        [
-          date.getFullYear(),
-          padTo2Digits(date.getMonth() + 1),
-          padTo2Digits(date.getDate()),
-          padTo2Digits(date.getHours()),
-          padTo2Digits(date.getMinutes()),
-          padTo2Digits(date.getSeconds()),
-        ].join('-') 
-      );
-    }
+      return [
+        date.getFullYear(),
+        padTo2Digits(date.getMonth() + 1),
+        padTo2Digits(date.getDate()),
+        padTo2Digits(date.getHours()),
+        padTo2Digits(date.getMinutes()),
+        padTo2Digits(date.getSeconds()),
+      ].join('-');
+    };
 
     // Token generation functions
     const generateAccessToken = () => {
@@ -230,48 +235,61 @@ module.exports = globalModule({
         })
         .resizeWindow(1920, 1080);
 
+      client.pause(1000);
       waitAndClick(joiningClass.joinRoom);
     };
 
-    // Loop of actions for participants
-    const actionFlow = () => {
+    const teacherActionFlow = () => {
       // TODO: Implement test case here
-      const {buttons} = selectors;
-      
-      client.pause(5*minute);
-      client.takeScreenshot(`${PARTICIPANT_ID}-joinRoomAfter5m-${formatDate(new Date())}.png`);
+      const { buttons } = selectors;
+
+      client.pause(5 * minute);
+      waitAndClick(buttons.viewModes);
+      waitAndClick(buttons.observe);
+      client.pause(5 * minute);
+      client.takeScreenshot(
+        `${PARTICIPANT_ID}-joinRoomAfter5m-${formatDate(new Date())}.png`
+      );
       client.pause(30 * minute);
-      client.takeScreenshot(`${PARTICIPANT_ID}-finish-${formatDate(new Date())}.png`);
+      client.takeScreenshot(
+        `${PARTICIPANT_ID}-finish-${formatDate(new Date())}.png`
+      );
+    };
+    // Loop of actions for participants
+    const studentActionFlow = () => {
+      // TODO: Implement test case here
+      const { buttons } = selectors;
+
+      client.pause(10 * minute);
+      client.takeScreenshot(
+        `${PARTICIPANT_ID}-joinRoomAfter5m-${formatDate(new Date())}.png`
+      );
+      client.pause(30 * minute);
+      client.takeScreenshot(
+        `${PARTICIPANT_ID}-finish-${formatDate(new Date())}.png`
+      );
     };
 
     // Account credentials setup.
     switch (GROUP_NAME.toLowerCase()) {
       case TEACHER:
         url +=
-          generateTeacherAuthToken(
-            PARTICIPANT_NAME,
-            ROOM_ID
-          ) + queryParams;
+          generateTeacherAuthToken(PARTICIPANT_NAME, ROOM_ID) + queryParams;
 
         joinClass();
-        actionFlow();
+        teacherActionFlow();
 
         break;
       case STUDENT:
         url +=
-          generateStudentAuthToken(
-            PARTICIPANT_NAME,
-            ROOM_ID
-          ) + queryParams;
+          generateStudentAuthToken(PARTICIPANT_NAME, ROOM_ID) + queryParams;
 
         joinClass();
-        actionFlow();
+        studentActionFlow();
 
         break;
       default:
-        throw new Error(
-          `Invalid account type: ${PARTICIPANT_NAME}`
-        );
+        throw new Error(`Invalid account type: ${PARTICIPANT_NAME}`);
     }
   },
 });

@@ -6,9 +6,9 @@
     "testObserve": "npx nightwatch tests/clickAllLessonsInObserve.js --config teacher.nightwatch.conf.js --env chrome",
     "testPresent": "npx nightwatch tests/clickAllLessonsInPresent.js --config teacher.nightwatch.conf.js --env chrome",
     "testAllInLive": "npx nightwatch tests/loadero/loadtest.kidsloop.vn/clickAllButtonsInLive.js --config teacher.nightwatch.conf.js --env chrome",
-    "testInHouseStay30MinutesInLive": "npx nightwatch tests/inHouse/loadtest.kidsloop.vn/stay30MinutesInLive.js --reporter html-reporter.js --parallel",
-    "testInHouseStay30MinutesWithObserveMode": "npx nightwatch tests/inHouse/loadtest.kidsloop.vn/stay30MinutesWithObserveMode.js --reporter html-reporter.js --parallel",
-    "testOutputandLogs": "npx nightwatch tests/inHouse/loadtest.kidsloop.vn/testOutputandLogs.js --reporter html-reporter.js --parallel"
+    "testInHouseStay30MinutesInLive": "npx nightwatch tests/inHouse/beta.kidsloop.vn/stay30MinutesInLive.js --reporter html-reporter.js --parallel",
+    "testInHouseStay30MinutesWithObserveMode": "npx nightwatch tests/inHouse/beta.kidsloop.vn/stay30MinutesWithObserveMode.js --reporter html-reporter.js --parallel",
+    "testOutputandLogs": "npx nightwatch tests/inHouse/beta.kidsloop.vn/testOutputandLogs.js --reporter html-reporter.js --parallel"
   },
   "dependencies": {
     "fs-extra": "^10.1.0",
